@@ -1,6 +1,6 @@
 const { createPrompt, useState, useKeypress } = require('@inquirer/core/hooks');
 const { usePrefix } = require('@inquirer/core/lib/prefix');
-const { isEnterKey, isBackspaceKey } = require('@inquirer/core/lib/key');
+const { isEnterKey, isBackspaceKey, isSpaceKey } = require('@inquirer/core/lib/key');
 const chalk = require('chalk');
 
 module.exports = createPrompt((config, done) => {
@@ -35,6 +35,10 @@ module.exports = createPrompt((config, done) => {
       }
     } else if (isBackspaceKey(key) && !value) {
       setDefaultValue(undefined);
+    } else if (isSpaceKey(key) && !value) {
+      setDefaultValue(undefined);
+      setValue(defaultValue);
+      setError(undefined);
     } else {
       setValue(rl.line);
       setError(undefined);
